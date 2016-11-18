@@ -71,15 +71,6 @@ class UsersController < ApplicationController
       end
     end
 
-    def admin?
-      !!current_user.admin
-    end
-
-    def protected(user)
-      redirect_to user_path unless user.admin?
-      redirect_to admin_path(user) # or to whatever the admin show page path
-    end
-
     def find_and_ensure_user
       @user = User.find_by(id: session[:user_id])
     end
