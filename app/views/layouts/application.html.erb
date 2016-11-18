@@ -9,6 +9,21 @@
   </head>
 
   <body>
+    <nav>
+      <div class="nav-wrapper red accent-3">
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><%= link_to 'Home', root_url %></li>
+        <% if logged_in? %>
+          <li><%= link_to 'My Account', current_user %></li>
+          <li><%= link_to 'Sign Out', signout_path, method: 'delete' %></li>
+        <% else %>
+          <li><%= link_to 'Register', register_path %></li>
+          <li><%= link_to 'Sign In', signin_path %></li>
+        <% end %>
+      </div>
+    </nav>
+    <div class="notice"><%= flash[:success] %></div>
+    <div class="alert"><%= flash[:danger] %></div>
     <%= yield %>
   </body>
 </html>

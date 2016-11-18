@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :cohort
-  resources :pitch
-  resources :round
-  resources :sessions
-  resources :user
-  resources :vote
+  get '/register', to: 'users#new'
+  get '/signin', to: 'sessions#new'
+  post '/signin', to: 'sessions#create'
+  delete '/signout', to: 'sessions#destroy'
+  resources :users, except: :index
+  resources :votes, only: [:create]
+  resources :cohorts
+  resources :pitches
+  resources :rounds
+  resources :admins
 
-  root 'sessions#index'
+  root 'static#index', to: 'static#index'
 end
