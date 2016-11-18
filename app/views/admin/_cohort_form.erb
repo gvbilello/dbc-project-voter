@@ -1,0 +1,26 @@
+<%= form_for(user) do |f| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <form class="col s12" action='/cohorts' method ='post'>
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="cohort_name" name="cohort[name]" placeholder="City-Year-Cohort_name" type="text" >
+        <label for="cohort_name">Cohort Name</label>
+      </div>
+    </div>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

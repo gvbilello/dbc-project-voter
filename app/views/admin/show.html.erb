@@ -1,0 +1,47 @@
+<header id="top-nav">
+  <div id="brand"></div>
+  <form id="search-form">
+    <input id="search" type="text" name="query">
+  </form>
+  <i class="fa fa-search"></i>
+</header>
+<section class="container">
+  <section id="create-cohort">
+    <p id="cohort-box-title">Create a New Cohort</p>
+    <form id="cohort-form">
+      <%= render '_cohort_form', user: @user %>
+      <input id="new-cohort" cols="30" rows="5" maxlength="140" name="tweet"></textarea>
+      <input type="submit" value="Cohort">
+    </form>
+  </section>
+  <section id="Cohorts">
+    <h3>Cohorts</h3>
+    <ul>
+      <% @cohorts.each do |cohort| %>
+        <li><%= cohort.name %>
+    </ul>
+  </section>
+  <section id="pitch-container">
+    <h3>Pitch</h3>
+    <ul>
+      <li class="pitch">
+        <div class="pitch-content">
+          <table>
+             <% @pitches.each do |pitch| %>
+               <tr>
+                 <td><%= pitch.working_title %></td>
+                 <td><%= pitch.description %></td>
+                 <td><%= pitch.user %></td>
+                 <td><<%= fields_for "pitch[chosen]" do |form| %>
+                      <%= form.check_box :true %>
+                      <% end %>
+                     </td>
+               </tr>
+             <% end %>
+           </table>
+
+        </div>
+      </li>
+    </ul>
+  </section>
+</section>
