@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :votes
   has_many :pitches
   has_many :rounds, through: :pitches
+  belongs_to :cohort
 
   validates_presence_of :name, :username, :email, :cohort
   validates_uniqueness_of :username, :email

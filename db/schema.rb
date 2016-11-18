@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161118163904) do
+ActiveRecord::Schema.define(version: 20161118200611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cohorts", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "pitches", force: :cascade do |t|
     t.string   "working_title", limit: 120, null: false
@@ -27,9 +33,10 @@ ActiveRecord::Schema.define(version: 20161118163904) do
   end
 
   create_table "rounds", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",                       null: false
+    t.boolean  "can_vote",   default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -37,10 +44,11 @@ ActiveRecord::Schema.define(version: 20161118163904) do
     t.string   "username",                        null: false
     t.string   "email",                           null: false
     t.string   "password_digest",                 null: false
-    t.string   "cohort"
+    t.integer  "cohort_id"
     t.boolean  "admin",           default: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.index ["cohort_id"], name: "index_users_on_cohort_id", using: :btree
   end
 
   create_table "votes", force: :cascade do |t|
