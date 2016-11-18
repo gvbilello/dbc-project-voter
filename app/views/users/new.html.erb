@@ -19,7 +19,12 @@
   </p>
 
   <p>
-  
+    <%= f.label :cohort %>
+    <select name="user[cohort_id]">
+      <% @cohorts.each do |cohort| %>
+      <option value="<%= cohort.id %>"><%= cohort.name %></option>
+      <% end %>
+    </select>
   </p>
 
   <p>
