@@ -20,6 +20,15 @@ module SessionsHelper
     @current_user = nil
   end
 
+  def admin?
+    !!current_user.admin
+  end
+
+  def protected(user)
+    redirect_to user_path unless user.admin?
+    redirect_to admin_path(user) # or to whatever the admin show page path
+  end
+
   def redirect_back_or(default)
     redirect_to(session[:forarding_url] || default)
     session.delete(:forarding_url) #session deletion occurs before redirect. Redirects occur at end of method unless explicitly returned
