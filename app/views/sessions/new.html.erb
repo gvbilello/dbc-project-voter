@@ -1,0 +1,23 @@
+<h1>Welcome to the Final Project Voting Machine!</h1>
+<% provide(:title, 'Sign In') %>
+<h1>Sign In</h1>
+
+<%= form_for :session, url: signin_path do |f| %>
+  <%= render partial: 'application/errors', layout: false, locals: { errors: @errors } %>
+
+  <p>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </p>
+
+  <p>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </p>
+
+  <p>
+    <%= f.submit "Sign In" %>
+  </p>
+<% end %>
+
+<p>New user? <%= link_to 'Sign up now!', register_path %></p>
