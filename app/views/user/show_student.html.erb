@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="sidebar">
+    <% if @user.pitches.count < 4 %>
+      <h2>Add a Pitch!</h2>
+      <%= form_for @pitch do |f| %>
+        Title: <%= f.text_field :title %>
+        Description: <%= f.text_field :description %>
+        <%= f.submit 'Add Pitch' %>
+      <% end %>
+    <% elsif @user.pitches.count >= 4 %>
+      <h2>Thanks! You've already submitted four pitches.  Let the voting commence!</h2>
+    <% end %>
+  </div>
+  <div class="main"
+    <div class="final-projects">
+      <% @pitches.each do |pitch| %>
+          <% if pitch.round.name == "final" %>
+            <li class="pitch">
+              <%=  pitch.title %> - <%= pitch.description %>
+            </li>
+          <% end %>
+        <% end %>
+    </div>
+    <div class="round-2-voting">
+      <% @pitches.each do |pitch| %>
+          <% if pitch.round.name == "second" %>
+            <li class="pitch">
+              <%=  pitch.title %> - <%= pitch.description %>
+            </li>
+          <% end %>
+        <% end %>
+    </div>
+    <div class="round-1-voting">
+      <ul class="round-1-pitches">
+        <% @pitches.each do |pitch| %>
+          <% if pitch.round.name == "first" %>
+            <li class="pitch">
+              <%=  pitch.title %> - <%= pitch.description %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

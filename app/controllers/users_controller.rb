@@ -4,7 +4,17 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
   def show
-    @user = User.find_by(id: params[:id])
+    @user = User.find(sessions[:user_id])
+    if @user.admin == true
+      # render admin dashboard
+      # render 'show_admin'
+    else
+      # render user dashboard
+      @rounds = @user.round
+      @pitch = Pitch.new
+      @pitches = Pitch.all.map { |pitch| pitch.user.cohort == @user.cohort }
+      render 'show_student'
+    end
   end
 
   def new
