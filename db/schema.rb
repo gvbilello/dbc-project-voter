@@ -18,27 +18,29 @@ ActiveRecord::Schema.define(version: 20161118163904) do
   create_table "pitches", force: :cascade do |t|
     t.string   "working_title", limit: 120, null: false
     t.text     "description",               null: false
+    t.integer  "user_id",                   null: false
+    t.integer  "round_id",                  null: false
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.index ["round_id"], name: "index_pitches_on_round_id", using: :btree
+    t.index ["user_id"], name: "index_pitches_on_user_id", using: :btree
   end
 
   create_table "rounds", force: :cascade do |t|
     t.string   "name",       null: false
-    t.integer  "user_id",    null: false
-    t.integer  "pitch_id",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",            null: false
-    t.string   "username",        null: false
-    t.string   "email",           null: false
-    t.string   "password_digest", null: false
-    t.string   "cohort",          null: false
-    t.string   "type",            null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "name",                            null: false
+    t.string   "username",                        null: false
+    t.string   "email",                           null: false
+    t.string   "password_digest",                 null: false
+    t.string   "cohort"
+    t.boolean  "admin",           default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "votes", force: :cascade do |t|

@@ -1,7 +1,7 @@
 class Round < ApplicationRecord
-  references :user
-  references :pitch
   has_many :votes
+  has_many :pitches
+  has_many :voters, through: :pitches, class_name: "User"
 
-  validates_presence_of :name, :user_id, :pitch_id
+  validates_presence_of :name
 end
