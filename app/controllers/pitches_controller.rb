@@ -12,6 +12,10 @@ class PitchesController < ApplicationController
   def edit
   end
 
+  def update_index
+    
+  end
+
   def update
   end
 
