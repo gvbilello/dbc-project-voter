@@ -13,29 +13,45 @@
   </div>
   <div class="main"
     <div class="final-projects">
+      <h2>Final Project!</h2>
       <% @pitches.each do |pitch| %>
           <% if pitch.round.name == "final" %>
             <li class="pitch">
+              <!-- pitch title and description -->
               <%=  pitch.title %> - <%= pitch.description %>
             </li>
           <% end %>
         <% end %>
     </div>
     <div class="round-2-voting">
+      <h2>Round 2 Voting</h2>
+      <ul class="round-2-pitches">
       <% @pitches.each do |pitch| %>
           <% if pitch.round.name == "second" %>
             <li class="pitch">
+              <!-- pitch title and description -->
               <%=  pitch.title %> - <%= pitch.description %>
+              <!-- pitch vote button -->
+              <% if @user.votes.where(round: @rounds.where(name: "second")) <= 7 && @rounds.where(name: "second").can_vote == true %>
+                <%= button_to "Vote", {action: "create"}, form_class: "vote-button" %>
+              <% end %>
             </li>
           <% end %>
         <% end %>
+      </ul>
     </div>
     <div class="round-1-voting">
+      <h2>Round 1 Voting</h2>
       <ul class="round-1-pitches">
         <% @pitches.each do |pitch| %>
           <% if pitch.round.name == "first" %>
             <li class="pitch">
+              <!-- pitch title and description -->
               <%=  pitch.title %> - <%= pitch.description %>
+              <!-- pitch vote button -->
+              <% if @user.votes.where(round: @rounds.where(name: "first")) <= 7 && @rounds.where(name: "first").can_vote == true %>
+                <%= button_to "Vote", {action: "create"}, form_class: "vote-button" %>
+              <% end %>
             </li>
           <% end %>
         <% end %>
