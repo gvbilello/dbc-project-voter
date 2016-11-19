@@ -1,30 +1,6 @@
 class UsersController < ApplicationController
-  # before_filter :sanitize_user_params, only: [:create, :edit, :update]
   before_action :logged_in_user, :find_and_ensure_user, only: [:show, :edit, :update]
-  before_action :correct_user, only: [:show, :edit, :update]
-
-  def show
-    # User.all[2] was just to check that page was working
-    # really should be:
-    # @user = User.find(params[:user_id])
-    @user = User.all[3]
-    if @user.admin == true
-      # render admin dashboard
-      # render 'show_admin'
-    else
-      # render user dashboard
-      rounds = @user.rounds.distinct
-      @first_round = rounds.select { |round| round.name == "first" }[0]
-      @second_round = rounds.select { |round| round.name == "second" }[0]
-      @final_round = rounds.select { |round| round.name == "final" }[0]
-
-      @pitches = []
-      Pitch.all.each do |pitch|
-        @pitches << pitch if pitch.user.cohort == @user.cohort
-      end
-      render 'show_student'
-    end
-  end
+  before_action :correct_user, only: [:show, :edit, :update, :correct_user]
 
   def new
     @cohorts = Cohort.order(:name)
@@ -36,11 +12,30 @@ class UsersController < ApplicationController
     if user.save
       session[:user_id] = user.id
       flash[:success] = 'Thank you for creating an account!'
-      # protected(user) # this will redirect to either user show page or admin page
-      redirect_to '/'
+      protected(user)
     else
       @errors = user.errors.full_messages
       render 'new'
+    end
+  end
+
+  def show
+    # if @user.admin == true
+      # render admin dashboard
+      # render 'show_admin'
+    # else
+      # render user dashboard
+      rounds = @user.rounds.distinct
+      binding.pry
+      @first_round = rounds.select { |round| round.name == "first" }[0]
+      @second_round = rounds.select { |round| round.name == "second" }[0]
+      @final_round = rounds.select { |round| round.name == "final" }[0]
+
+      @pitches = []
+      Pitch.all.each do |pitch|
+        @pitches << pitch if pitch.user.cohort == @user.cohort
+      end
+      render 'show_student'
     end
   end
 
@@ -76,7 +71,6 @@ class UsersController < ApplicationController
     end
 
     def correct_user
-      user = User.find_by(id: params[:id])
-      redirect_to(root_url) unless current_user?(user)
+      redirect_to root_url unless current_user?(@user)
     end
-end
+# end
