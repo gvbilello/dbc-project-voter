@@ -14,9 +14,9 @@ Cohort.delete_all
 student_names = ["Greg", "Catherine", "Nan", "Zack", "Scott", "Jacob", "Marissa", "Matt", "Lindsay", "Michael", "Jason", "Miles"]
 admin_names = ["Iulia", "Dan"]
 
-cohort_name = ["nyc-2016-coyotes", "nyc-admins"]
+cohort_names = ["nyc-2016-coyotes", "nyc-admins"]
 
-cohort_name.each do |name|
+cohort_names.each do |name|
   Cohort.create!(name: name)
 end
 
