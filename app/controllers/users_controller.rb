@@ -4,7 +4,26 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
   def show
-    @user = User.find_by(id: params[:id])
+    # User.all[2] was just to check that page was working
+    # really should be:
+    # @user = User.find(params[:user_id])
+    @user = User.all[3]
+    if @user.admin == true
+      # render admin dashboard
+      # render 'show_admin'
+    else
+      # render user dashboard
+      rounds = @user.rounds.distinct
+      @first_round = rounds.select { |round| round.name == "first" }[0]
+      @second_round = rounds.select { |round| round.name == "second" }[0]
+      @final_round = rounds.select { |round| round.name == "final" }[0]
+
+      @pitches = []
+      Pitch.all.each do |pitch|
+        @pitches << pitch if pitch.user.cohort == @user.cohort
+      end
+      render 'show_student'
+    end
   end
 
   def new

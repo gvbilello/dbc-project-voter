@@ -1,0 +1,69 @@
+<div class="container">
+
+  <div class="sidebar">
+    <% if @user.pitches.count < 4 %>
+      <h2>Add a Pitch!</h2>
+      <!-- form for adding a new pitch - currently does not work - this will work with AJAX -->
+      <%= form_for :pitch, url: pitches_path do |f| %>
+        Title: <%= f.text_field :working_title %>
+        Description: <%= f.text_field :description %>
+        <%= f.submit 'Add Pitch' %>
+      <% end %>
+    <% elsif @user.pitches.count >= 4 %>
+      <h2>Thanks! You've already submitted four pitches.  Let the voting commence!</h2>
+    <% end %>
+  </div>
+
+  <div class="main"
+
+    <div class="final-projects">
+      <h2>Final Projects!</h2>
+      <ul class="final-pitches">
+        <% @pitches.each do |pitch| %>
+          <% if pitch.round.name == "final" %>
+            <li class="pitch">
+              <%=  pitch.working_title %> - <%= pitch.description %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="round-2-voting">
+      <h2>Round 2 Voting:</h2>
+      <ul class="round-2-pitches">
+      <% @pitches.each do |pitch| %>
+          <% if pitch.round.name == "second" %>
+            <li class="pitch">
+              <%=  pitch.working_title %> - <%= pitch.description %>
+              <% if @second_round.can_vote == true %>
+                <!-- vote button for round 2 - currently doesn't work -->
+                <!-- button needs to be changed to drop-down menu with 1,2,3,4,5 rankings -->
+                <%= button_to "Vote", votes_path %>
+              <% end %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="round-1-voting">
+      <h2>Round 1 Voting:</h2>
+      <ul class="round-1-pitches">
+        <% @pitches.each do |pitch| %>
+          <% if pitch.round.name == "first" %>
+            <li class="pitch">
+              <%=  pitch.working_title %> - <%= pitch.description %>
+              <% if @first_round.can_vote == true %>
+                <!-- vote button for round 1 - currently doesn't work -->
+                <%= button_to "Vote", votes_path %>
+              <% end %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+
+  </div>
+
+</div>
