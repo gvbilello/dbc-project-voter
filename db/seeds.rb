@@ -9,6 +9,7 @@ User.delete_all
 Pitch.delete_all
 Vote.delete_all
 Round.delete_all
+Cohort.delete_all
 
 student_names = ["Greg", "Catherine", "Nan", "Zack", "Scott", "Jacob", "Marissa", "Matt", "Lindsay", "Michael", "Jason", "Miles"]
 admin_names = ["Iulia", "Dan"]
@@ -30,7 +31,7 @@ end
 round_one = Round.create!(name: "first")
 
 30.times do
-  Pitch.create!(working_title: Faker::App.name, description: Faker::Hacker.say_something_smart, user_id: (1..12).to_a.sample, round_id: 1)
+  Pitch.create!(working_title: Faker::App.name, description: Faker::Hacker.say_something_smart, user_id: (3..14).to_a.sample, round_id: 1)
 end
 
 round_one_votes = students.map do |student|
@@ -38,5 +39,3 @@ round_one_votes = students.map do |student|
     Vote.create!(user_id: student.id, pitch_id: (1..30).to_a.sample, round_id: 1)
   end
 end
-
-

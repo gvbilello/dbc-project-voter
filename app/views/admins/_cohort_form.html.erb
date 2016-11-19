@@ -1,0 +1,13 @@
+<%= form_for :cohort, url: cohorts_path do |f| %>
+    <%= render partial: 'application/errors', layout: false, locals: { errors: @errors } %>
+
+      <p>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </p>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
