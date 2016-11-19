@@ -3,8 +3,9 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
-  def current_user?(user)
-    user == current_user
+  def current_user?
+    find_and_ensure_user
+    @user == current_user
   end
 
   def current_user
@@ -25,14 +26,20 @@ module SessionsHelper
   end
 
   def protected(user)
-    redirect_to user_path(user) unless user.admin?
-    # return
-    # redirect_to admin_path(user) # this works, but need path to admin_dashboard
+    redirect_to user_path(user) unless user.admin? #probably current_user
+  end
+
+  def logged_in_user
+    unless logged_in?
+      store_location
+      flash[:danger] = 'Please log in'
+      redirect_to signin_url
+    end
   end
 
   def redirect_back_or(default)
     redirect_to(session[:forarding_url] || default)
-    session.delete(:forarding_url) #session deletion occurs before redirect. Redirects occur at end of method unless explicitly returned
+    session.delete(:forarding_url)
   end
 
   def store_location
