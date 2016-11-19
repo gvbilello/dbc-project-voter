@@ -25,8 +25,9 @@ module SessionsHelper
   end
 
   def protected(user)
-    redirect_to user_path unless user.admin?
-    redirect_to admin_path(user) # or to whatever the admin show page path
+    redirect_to user_path(user) unless user.admin?
+    return
+    redirect_to admin_path(user) # this works, but need path to admin_dashboard
   end
 
   def redirect_back_or(default)

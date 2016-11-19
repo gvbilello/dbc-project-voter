@@ -7,7 +7,8 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
       # redirect_back_or user will change when Greg & Nan include user/admin dashboard
-      redirect_to '/'
+      binding.pry
+      protected(user)
     else
       flash[:danger] = 'Invalid email or password'
       render 'new'
