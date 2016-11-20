@@ -20,13 +20,13 @@ class UsersController < ApplicationController
   end
 
   def show
-    # if @user.admin == true
+    if @user.admin == true
       # render admin dashboard
-      # render 'show_admin'
-    # else
+      render 'show_admin'
+    else
       # render user dashboard
       rounds = @user.rounds.distinct
-      binding.pry
+      # binding.pry
       @first_round = rounds.select { |round| round.name == "first" }[0]
       @second_round = rounds.select { |round| round.name == "second" }[0]
       @final_round = rounds.select { |round| round.name == "final" }[0]
@@ -73,4 +73,4 @@ class UsersController < ApplicationController
     def correct_user
       redirect_to root_url unless current_user?(@user)
     end
-# end
+end

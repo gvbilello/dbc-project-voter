@@ -8,8 +8,8 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       # redirect_back_or user will change when Greg & Nan include user/admin dashboard
       # binding.pry
-      protected(user)
-      redirect_to admin_path(user)
+      # protected(user)
+      redirect_to admin_path(user) unless protected(user)
     else
       flash[:danger] = 'Invalid email or password'
       render 'new'
