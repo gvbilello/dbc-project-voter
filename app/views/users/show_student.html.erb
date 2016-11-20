@@ -16,6 +16,13 @@
 
   <div class="main"
 
+  <% if @pitches.any? %>
+   <table id="round_1_pitches">
+     <% @pitches.each do |pitch| %>
+     <%= render partial: '/pitches/show', layout: false, locals: {pitch: pitch} %>
+     <% end %>
+   </table>
+  <% end %>
     <div class="final-projects">
       <h2>Final Projects!</h2>
       <ul class="final-pitches">
@@ -31,5 +38,12 @@
 
   </div>
 
-
 </div>
+
+
+
+<%= form_for :pitch, url: edit_pitch_path, method: 'put' do |f| %>
+  <%= f.submit "submit vote" %>
+<% end %>
+
+
