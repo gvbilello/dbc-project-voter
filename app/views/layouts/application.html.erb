@@ -5,25 +5,53 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <%= javascript_include_tag 'application' %>
+
   </head>
 
   <body>
-    <nav>
-      <div class="nav-wrapper red accent-3">
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><%= link_to 'Home', root_url %></li>
-        <% if logged_in? %>
-          <li><%= link_to 'My Account', current_user %></li>
-          <li><%= link_to 'Sign Out', signout_path, method: 'delete' %></li>
-        <% else %>
-          <li><%= link_to 'Register', register_path %></li>
-          <li><%= link_to 'Sign In', signin_path %></li>
-        <% end %>
-      </div>
-    </nav>
+    <div class="header">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="/">VoteForMe</a>
+
+        <ul class="pure-menu-list">
+            <% if logged_in? %>
+            <li class="pure-menu-item"><%= link_to 'My Account', current_user, class: 'pure-menu-link' %></li>
+            <li class="pure-menu-item"><%= link_to 'Sign Out', signout_path, method: 'delete', class: 'pure-menu-link' %></li>
+            <% else %>
+            <li class="pure-menu-item"><%= link_to 'Register', register_path, class: 'pure-menu-link' %></li>
+            <li class="pure-menu-item"><%= link_to 'Sign In', signin_path, class: 'pure-menu-link' %></li>
+            <% end %>
+        </ul>
+    </div>
+    </div>
     <div class="notice"><%= flash[:success] %></div>
     <div class="alert"><%= flash[:danger] %></div>
-    <%= yield %>
+
+    <div class="splash-container">
+    <div class="splash">
+        <div class="splash-head">
+          <h1 class="splash-title"></h1>
+          <%= yield %>
+        </div>
+
+        <p class="splash-subhead">
+          VoteForMe, a web-app designed to streamline the voting process for final projects for Phase 3 students at Dev Bootcamp. A UI built for ease of use and navigation, eliminating the excuse of not voting or pitching an idea.
+          <a href="/register">Register</a> and give us a try.</p>
+        <% if !logged_in? %>
+        <p>
+            <a href="/register" class="pure-button pure-button-primary">Register</a>
+            <a href="/signin" class="pure-button pure-button-primary">Sign In</a>
+        </p>
+      <% end %>
+    </div>
+    </div>
+    <div class="footer l-box is-center">
+        ©VoteForMeDBC 2016
+    </div>
+
   </body>
 </html>
