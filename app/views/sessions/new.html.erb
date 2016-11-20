@@ -1,23 +1,23 @@
-<h1>Welcome to the Final Project Voting Machine!</h1>
 <% provide(:title, 'Sign In') %>
 <h1>Sign In</h1>
 
-<%= form_for :session, url: signin_path do |f| %>
+<%= form_for :session, url: signin_path, class: 'pure-form pure-form-aligned' do |f| %>
   <%= render partial: 'application/errors', layout: false, locals: { errors: @errors } %>
+  <div class="sign_in_fields">
+    <p>
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </p>
+
+    <p>
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </p>
+  </div>
 
   <p>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </p>
-
-  <p>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </p>
-
-  <p>
-    <%= f.submit "Sign In" %>
+    <button id="sign_up_btn" class="pure-button pure-button-primary">Sign In</button>
   </p>
 <% end %>
 
-<p>New user? <%= link_to 'Sign up now!', register_path %></p>
+<p>New user? <%= link_to 'Sign up now!', register_path, class: "register-user" %></p>
