@@ -1,0 +1,16 @@
+<tr>
+   <td><%= pitch.working_title %></td>
+   <td><%= pitch.description %></td>
+   <td><%= pitch.user.name %></td>
+   <td><%= fields_for "pitch[chosen]" do |form| %>
+        <%= form.check_box :true %>
+          <div class="actions">
+          </div>
+        <% end %>
+       </td>
+ </tr>
+ <br/>
+
+
+
+
