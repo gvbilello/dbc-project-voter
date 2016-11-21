@@ -30,12 +30,44 @@ body {
   color: #7f8c8d;
 }
 
+form p button#sign_up_btn:hover {
+  background-color: orange;
+}
+
+p button {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+p a.idx-btn {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+p a.idx-btn:hover {
+  background-color: #003399;
+}
+
+ul li a.pure-menu-link:hover {
+  background-color: #003399;
+}
+
+ul li a.pure-menu-link:active {
+  background-color: #003399;
+}
+
 form input {
+  color: black;
+}
+
+form select {
   color: black;
 }
 
 form textarea {
   color: black;
+}
+
+p button.sign-up {
+
 }
 
 li a.pure-menu-link {
