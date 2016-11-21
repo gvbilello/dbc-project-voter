@@ -20,10 +20,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    if @user.admin == true
-      # render admin dashboard
-      render 'show_admin'
-    else
+    # if @user.admin == true
+    #   # render admin dashboard
+    #   render 'show_admin'
+    # else
       # render user dashboard
       rounds = @user.rounds.distinct
       # binding.pry
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
         @pitches << pitch if pitch.user.cohort == @user.cohort
       end
       render 'show_student'
-    end
+    # end
   end
 
   def edit

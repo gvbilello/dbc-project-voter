@@ -6,9 +6,6 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email])
     if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
-      # redirect_back_or user will change when Greg & Nan include user/admin dashboard
-      # binding.pry
-      # protected(user)
       redirect_to admin_path(user) unless protected(user)
     else
       flash[:danger] = 'Invalid email or password'
@@ -18,6 +15,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session.clear
-    redirect_to signin_path #will change to root page when I have static page
+    redirect_to signin_path
   end
 end
