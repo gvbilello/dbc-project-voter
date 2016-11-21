@@ -1,20 +1,22 @@
 <div class="container">
 
   <div class="sidebar">
-    <% if @user.pitches.count < 4 %>
-      <h2>Add a Pitch!</h2>
-      <!-- form for adding a new pitch - currently does not work - this will work with AJAX -->
-      <%= form_for :pitch, url: pitches_path, :html => { class: "pure-form pure-form-aligned new-pitch-form" } do |f| %>
-      <fieldset>
-        <label for="title">Title:</label>
-        <%= f.text_field :working_title %>
-        <label for="description">Description:</label>
-        <%= f.text_area :description %>
-        <button id="add-pitch-btn" class="pure-button pure-button-primary sign-up">Add Pitch</button>
-      </fieldset>
+    <% if !@second_round && !@final_round %>
+      <% if @user.pitches.count < 4 %>
+        <h2>Add a Pitch!</h2>
+        <!-- form for adding a new pitch - currently does not work - this will work with AJAX -->
+        <%= form_for :pitch, url: pitches_path, :html => { class: "pure-form pure-form-aligned new-pitch-form" } do |f| %>
+        <fieldset>
+          <label for="title">Title:</label>
+          <%= f.text_field :working_title %>
+          <label for="description">Description:</label>
+          <%= f.text_area :description %>
+          <button id="add-pitch-btn" class="pure-button pure-button-primary sign-up">Add Pitch</button>
+        </fieldset>
+        <% end %>
+      <% elsif @user.pitches.count >= 4 %>
+        <h2>Thanks! You've already submitted four pitches.  Let the voting commence!</h2>
       <% end %>
-    <% elsif @user.pitches.count >= 4 %>
-      <h2>Thanks! You've already submitted four pitches.  Let the voting commence!</h2>
     <% end %>
   </div>
   <% if @final_pitches %>
@@ -37,20 +39,25 @@
   <% if @second_round_pitches %>
     <div class="round-2-voting">
       <h2>Round 2 Voting:</h2>
-      <ul class="round-2-pitches">
-      <% @second_round_pitches.each do |pitch| %>
-        <li class="pitch">
-          <%=  pitch.working_title %> - <%= pitch.description %>
-          <% if @second_round.can_vote %>
-            <!-- vote button for round 2 - currently doesn't work -->
-            <!-- button needs to be changed to drop-down menu with 1,2,3,4,5 rankings -->
-            <%= form_for @vote do |f| %>
-              <button class="button-xsmall vote-btn pure-button pure-button-primary sign-up">Vote</button>
-            <% end %>
+      <table class="round-2-pitches">
+        <tr class="pitch-table-row-header">
+        <td class="column-header">Working Title</td>
+        <td class="column-header">Description</td>
+        </tr>
+        <%= form_for :pitch, url: votes_path, :html => { method: "POST", class: "pure-form pure-form-aligned new-pitch-form" } do |f| %>
+          <% @second_round_pitches.each do |pitch| %>
+            <tr class="pitch">
+              <td><%=  pitch.working_title %></td><td><%= pitch.description %></td>
+              <td>
+                <%= f.select(:rankings, options_for_select([[5], [4], [3], [2], [1]]), {}, {class: "rankings form-control"}) %>
+              </td>
           <% end %>
-        </li>
+        </tr>
+      </table>
+      <div class="actions btn btn-lg">
+        <button class="final-vote-btn pure-button pure-button-primary sign-up">Submit Final Round Rankings</button>
+      </div>
       <% end %>
-      </ul>
     </div>
   <% end %>
 
@@ -61,7 +68,7 @@
         <tr class="pitch-table-row-header">
           <td class="column-header">Working Title</td>
           <td class="column-header">Description</td>
-          <% if @first_round.can_vote %>
+          <% if @first_round.can_vote && !@second_round %>
             <td class="column header vote-header">Vote for Pitch</td>
           <% end %>
         </tr>
@@ -70,7 +77,7 @@
             <tr>
               <td><%=  pitch.working_title %></td>
               <td><%= pitch.description %></td>
-              <% if @first_round.can_vote %>
+              <% if @first_round.can_vote && !@second_round %>
                 <td class="vote-btn-table-row">
                   <!-- vote button for round 1 - currently doesn't work -->
                   <form class="vote-btn" method="post" action="/votes">
