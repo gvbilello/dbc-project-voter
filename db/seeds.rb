@@ -28,7 +28,7 @@ students = student_names.map do |student_name|
   User.create!(name: student_name, username: Faker::Internet.user_name, email: Faker::Internet.free_email, password: "password", cohort_id: 1)
 end
 
-round_one = Round.create!(name: "first")
+round_one = Round.create!(name: "first", can_vote: true)
 
 30.times do
   Pitch.create!(working_title: Faker::App.name, description: Faker::Hacker.say_something_smart, user_id: (3..14).to_a.sample, round_id: 1)
