@@ -5,28 +5,28 @@
   </section>
   <section id="Cohorts">
     <h3>Cohorts</h3>
-    <ul>
+    <ul class="cohort-list-container">
     <% @cohorts.each do |cohort| %>
       <li><%= cohort.name %></li>
     <% end %>
     </ul>
   </section>
   <section id="pitch-container">
-    <h3>Pitch</h3>
+    <h3>Pitches</h3>
     <div class="pitch-content">
-      <table>
+      <table class="admin-view">
         <tr>
-          <td>Working Title</td>
-          <td>Description</td>
-          <td>Select Pitch</td>
+          <td class="column-header title-header">Working Title</td>
+          <td class="column-header">Description</td>
+          <td class="column-header pitch-check-box">Select Pitch</td>
         <tr>
         <% @pitches.each do |pitch| %>
           <tr>
-            <td><%= pitch.working_title %></td>
+            <td class="title-column"><%= pitch.working_title %></td>
             <td><%= pitch.description %></td>
-            <td><%= pitch.user.name %></td>
+            <td class="pitch-author-column"><%= pitch.user.name %></td>
             <%= fields_for "pitch[chosen]" do |form| %>
-              <td><%= form.check_box :true %></td>
+              <td><%= form.check_box :true, class: 'vote-btn-table-row' %></td>
             <% end %>
           </tr>
         <% end %>
