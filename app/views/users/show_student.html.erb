@@ -4,10 +4,14 @@
     <% if @user.pitches.count < 4 %>
       <h2>Add a Pitch!</h2>
       <!-- form for adding a new pitch - currently does not work - this will work with AJAX -->
-      <%= form_for :pitch, url: pitches_path, :html => { class: "new-pitch-form" } do |f| %>
-        Title: <%= f.text_field :working_title %>
-        Description: <%= f.text_field :description %>
-        <%= f.submit 'Add Pitch' %>
+      <%= form_for :pitch, url: pitches_path, :html => { class: "pure-form pure-form-aligned new-pitch-form" } do |f| %>
+      <fieldset>
+        <label for="title">Title:</label>
+        <%= f.text_field :working_title %>
+        <label for="description">Description:</label>
+        <%= f.text_area :description %>
+        <button id="add-pitch-btn" class="pure-button pure-button-primary sign-up">Add Pitch</button>
+      </fieldset>
       <% end %>
     <% elsif @user.pitches.count >= 4 %>
       <h2>Thanks! You've already submitted four pitches.  Let the voting commence!</h2>
@@ -39,7 +43,9 @@
               <% if @second_round.can_vote == true %>
                 <!-- vote button for round 2 - currently doesn't work -->
                 <!-- button needs to be changed to drop-down menu with 1,2,3,4,5 rankings -->
-                <%= button_to "Vote", votes_path %>
+                <%= form_for @vote do |f| %>
+                  <button class="button-xsmall vote-btn pure-button pure-button-primary sign-up">Vote</button>
+                <% end %>
               <% end %>
             </li>
           <% end %>
@@ -51,10 +57,10 @@
       <h2>Round 1 Voting:</h2>
       <table class="round-1-pitches">
         <tr class="pitch-table-row-header">
-          <td>Working Title</td>
-          <td>Description</td>
+          <td class="column-header">Working Title</td>
+          <td class="column-header">Description</td>
           <% if @first_round.can_vote %>
-            <td>Vote for Pitch</td>
+            <td class="column header vote-header">Vote for Pitch</td>
           <% end %>
         </tr>
         <% @pitches.each do |pitch| %>
@@ -63,8 +69,11 @@
               <td><%=  pitch.working_title %></td>
               <td><%= pitch.description %></td>
               <% if @first_round.can_vote %>
-                <!-- vote button for round 1 - currently doesn't work -->
-                <td><%= button_to "Vote", votes_path %></td>
+              <td class="vote-btn-table-row">
+                <form class="vote-btn" method="post" action="/votes">
+                  <button class="button-xsmall vote-btn pure-button pure-button-primary sign-up">Vote</button>
+                </form>
+              </td>
               <% end %>
             </tr>
           <% end %>
