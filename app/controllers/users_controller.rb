@@ -23,15 +23,19 @@ class UsersController < ApplicationController
     if current_user.admin
       redirect_to admin_path(current_user)
     else
-      rounds = @user.rounds.distinct
-      @first_round = rounds.select { |round| round.name == "first" }[0]
-      @second_round = rounds.select { |round| round.name == "second" }[0]
-      @final_round = rounds.select { |round| round.name == "final" }[0]
+      @first_round = Round.where(name: "first")
+      @second_round = Round.where(name: "second")
+      @final_round = Round.where(name: "final")
+      # binding.pry
+      @first_round_pitches = Pitch.where(round_id: @first_round.ids[0])
+      @second_round_pitches = Pitch.where(round_id: @second_round.ids[0])
+      @final_pitches = Pitch.where(round_id: @final_round.ids[0])
 
       @pitches = []
       Pitch.all.each do |pitch|
         @pitches << pitch if pitch.user.cohort == @user.cohort
       end
+      binding.pry
       render 'show_student'
     end
   end

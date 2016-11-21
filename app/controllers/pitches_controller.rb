@@ -37,8 +37,7 @@ class PitchesController < ApplicationController
         # something
         @second_round_pitches = Pitch.where(selected: true)
         @second_round_pitches.each do |pitch|
-          pitch.round = @round
-          pitch.selected = false
+          pitch.update_attributes(round_id: @round.id, selected: false)
         end
         # binding.pry
         render 'admins/show'

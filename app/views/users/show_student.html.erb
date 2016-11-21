@@ -17,45 +17,44 @@
       <h2>Thanks! You've already submitted four pitches.  Let the voting commence!</h2>
     <% end %>
   </div>
-
-  <div class="main"
-<% if @user.rounds.any? %>
-    <div class="final-projects">
-      <h2>Final Projects!</h2>
-      <ul class="final-pitches">
-        <% @pitches.each do |pitch| %>
-          <% if pitch.round.name == "final" %>
-<% binding.pry %>
-            <li class="pitch">
-              <%=  pitch.working_title %> - <%= pitch.description %>
-            </li>
+  <% if @final_pitches %>
+    <div class="main"
+      <div class="final-projects">
+        <h2>Final Projects!</h2>
+        <ul class="final-pitches">
+          <% @final_pitches.each do |pitch| %>
+            <% if pitch.round.name == "final" %>
+              <li class="pitch">
+                <%=  pitch.working_title %> - <%= pitch.description %>
+              </li>
+            <% end %>
           <% end %>
-        <% end %>
-      </ul>
+        </ul>
+      </div>
     </div>
-<% if @user.rounds.any? %>
+  <% end %>
+
+  <% if @second_round_pitches %>
     <div class="round-2-voting">
       <h2>Round 2 Voting:</h2>
       <ul class="round-2-pitches">
-      <% @pitches.each do |pitch| %>
-          <% if pitch.round.name == "second" %>
-            <li class="pitch">
-              <%=  pitch.working_title %> - <%= pitch.description %>
-              <% if @second_round.can_vote == true %>
-                <!-- vote button for round 2 - currently doesn't work -->
-                <!-- button needs to be changed to drop-down menu with 1,2,3,4,5 rankings -->
-                <%= form_for @vote do |f| %>
-                  <button class="button-xsmall vote-btn pure-button pure-button-primary sign-up">Vote</button>
-                <% end %>
-              <% end %>
-            </li>
+      <% @second_round_pitches.each do |pitch| %>
+        <li class="pitch">
+          <%=  pitch.working_title %> - <%= pitch.description %>
+          <% if @second_round.can_vote %>
+            <!-- vote button for round 2 - currently doesn't work -->
+            <!-- button needs to be changed to drop-down menu with 1,2,3,4,5 rankings -->
+            <%= form_for @vote do |f| %>
+              <button class="button-xsmall vote-btn pure-button pure-button-primary sign-up">Vote</button>
+            <% end %>
           <% end %>
-        <% end %>
-      <% end %>
+        </li>
       <% end %>
       </ul>
     </div>
-<% if @user.rounds.any? %>
+  <% end %>
+
+  <% if @first_round_pitches %>
     <div class="round-1-voting">
       <h2>Round 1 Voting:</h2>
       <table class="round-1-pitches">
@@ -66,26 +65,24 @@
             <td class="column header vote-header">Vote for Pitch</td>
           <% end %>
         </tr>
-        <% @pitches.each do |pitch| %>
+        <% @first_round_pitches.each do |pitch| %>
           <% if pitch.round.name == "first" %>
             <tr>
               <td><%=  pitch.working_title %></td>
               <td><%= pitch.description %></td>
               <% if @first_round.can_vote %>
-              <td class="vote-btn-table-row">
-                <!-- vote button for round 1 - currently doesn't work -->
-                <form class="vote-btn" method="post" action="/votes">
-                  <button class="button-xsmall vote-btn pure-button pure-button-primary sign-up">Vote</button>
-                </form>
-              </td>
+                <td class="vote-btn-table-row">
+                  <!-- vote button for round 1 - currently doesn't work -->
+                  <form class="vote-btn" method="post" action="/votes">
+                    <button class="button-xsmall vote-btn pure-button pure-button-primary sign-up">Vote</button>
+                  </form>
+                </td>
               <% end %>
             </tr>
           <% end %>
         <% end %>
       </table>
     </div>
-    <% end %>
-
-  </div>
+  <% end %>
 
 </div>

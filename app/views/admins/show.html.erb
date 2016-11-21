@@ -27,7 +27,7 @@
                 <td><%= pitch.working_title %></td>
                 <td><%= pitch.description %></td>
                 <td><%= pitch.user.name %></td>
-                <td><%= pitch.votes.count %></td>
+                <td><%= pitch.sum_ranks %></td>
                 <% unless @round.name == "final" %>
                   <td>
                     <% unless pitch.selected %>
@@ -71,9 +71,11 @@
             </tr>
           <% end %>
         </table>
-        <div class="actions btn btn-lg">
-          <%= f.submit "Select Top Pitches" %>
-        </div>
+        <% unless @round.name == "second" || @round.name == "final" %>
+          <div class="actions btn btn-lg">
+            <%= f.submit "Select Top Pitches" %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </section>

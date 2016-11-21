@@ -3,8 +3,9 @@ class AdminsController < ApplicationController
 
   def show
     @pitches = Pitch.all.sort_by { |pitch| pitch.votes.count }.reverse
-
     @cohorts = Cohort.all
+    @round = current_user.rounds
+    # binding.pry
     render :show
   end
 
