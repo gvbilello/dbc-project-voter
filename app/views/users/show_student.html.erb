@@ -49,19 +49,27 @@
 
     <div class="round-1-voting">
       <h2>Round 1 Voting:</h2>
-      <ul class="round-1-pitches">
+      <table class="round-1-pitches">
+        <tr class="pitch-table-row-header">
+          <td>Working Title</td>
+          <td>Description</td>
+          <% if @first_round.can_vote %>
+            <td>Vote for Pitch</td>
+          <% end %>
+        </tr>
         <% @pitches.each do |pitch| %>
           <% if pitch.round.name == "first" %>
-            <li class="pitch">
-              <%=  pitch.working_title %> - <%= pitch.description %>
-              <% if @first_round.can_vote == true %>
+            <tr>
+              <td><%=  pitch.working_title %></td>
+              <td><%= pitch.description %></td>
+              <% if @first_round.can_vote %>
                 <!-- vote button for round 1 - currently doesn't work -->
-                <%= button_to "Vote", votes_path %>
+                <td><%= button_to "Vote", votes_path %></td>
               <% end %>
-            </li>
+            </tr>
           <% end %>
         <% end %>
-      </ul>
+      </table>
     </div>
 
   </div>
