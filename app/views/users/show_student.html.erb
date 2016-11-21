@@ -73,6 +73,7 @@
               <td><%= pitch.description %></td>
               <% if @first_round.can_vote %>
               <td class="vote-btn-table-row">
+                <!-- vote button for round 1 - currently doesn't work -->
                 <form class="vote-btn" method="post" action="/votes">
                   <button class="button-xsmall vote-btn pure-button pure-button-primary sign-up">Vote</button>
                 </form>
