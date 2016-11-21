@@ -20,6 +20,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    if current_user.admin
+      redirect_to admin_path(current_user)
+    else
       rounds = @user.rounds.distinct
       @first_round = rounds.select { |round| round.name == "first" }[0]
       @second_round = rounds.select { |round| round.name == "second" }[0]
@@ -30,6 +33,7 @@ class UsersController < ApplicationController
         @pitches << pitch if pitch.user.cohort == @user.cohort
       end
       render 'show_student'
+    end
   end
 
   def edit

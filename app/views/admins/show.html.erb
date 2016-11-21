@@ -1,38 +1,36 @@
 <section class="container">
   <section id="create-cohort">
     <p id="cohort-box-title">Create a New Cohort</p>
-
-      <%= render partial: 'admins/cohort_form', layout: false, locals: {user: @user} %>
-
+    <%= render partial: 'admins/cohort_form', layout: false, locals: {user: @user} %>
   </section>
   <section id="Cohorts">
     <h3>Cohorts</h3>
     <ul>
-      <% @cohorts.each do |cohort| %>
-        <li><%= cohort.name %></li>
-      <% end %>
+    <% @cohorts.each do |cohort| %>
+      <li><%= cohort.name %></li>
+    <% end %>
     </ul>
   </section>
   <section id="pitch-container">
     <h3>Pitch</h3>
-    <ul>
-      <li class="pitch">
-        <div class="pitch-content">
-          <table>
-             <% @pitches.each do |pitch| %>
-               <tr>
-                 <td><%= pitch.working_title %></td>
-                 <td><%= pitch.description %></td>
-                 <td><%= pitch.user.name %></td>
-                 <td><%= fields_for "pitch[chosen]" do |form| %>
-                      <%= form.check_box :true %>
-                      <% end %>
-                     </td>
-               </tr>
-             <% end %>
-           </table>
-
-        </div>
-      </li>
-    </ul>
+    <div class="pitch-content">
+      <table>
+        <tr>
+          <td>Working Title</td>
+          <td>Description</td>
+          <td>Select Pitch</td>
+        <tr>
+        <% @pitches.each do |pitch| %>
+          <tr>
+            <td><%= pitch.working_title %></td>
+            <td><%= pitch.description %></td>
+            <td><%= pitch.user.name %></td>
+            <%= fields_for "pitch[chosen]" do |form| %>
+              <td><%= form.check_box :true %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    </div>
   </section>
+</section>

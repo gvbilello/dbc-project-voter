@@ -30,6 +30,14 @@ body {
   color: #7f8c8d;
 }
 
+form input {
+  color: black;
+}
+
+form textarea {
+  color: black;
+}
+
 li a.pure-menu-link {
   color: white;
 }
@@ -120,11 +128,16 @@ div {
    color: white;
    letter-spacing: .05em;
    opacity: .8;
+   text-align: center;
  }
 
  .footer {
    position: fixed; bottom: 0; width: 100%;
    text-align: center;
+ }
+
+ table {
+   margin: 0 auto;
  }
 
  button#add-pitch-btn {
@@ -140,4 +153,18 @@ div {
    background-color: white;
    color: #1f8dd6;
    font-size: 70%;
+ }
+
+ td.vote-header {
+  padding-left: 20px;
+  font-weight: bold;
+ }
+
+ td.column-header {
+   font-weight: bold;
+ }
+
+ td.vote-btn-table-row {
+   padding: 10px;
+   padding-right: 35px;
  }
