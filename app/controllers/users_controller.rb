@@ -21,7 +21,6 @@ class UsersController < ApplicationController
 
   def show
       rounds = @user.rounds.distinct
-      binding.pry
       @first_round = rounds.select { |round| round.name == "first" }[0]
       @second_round = rounds.select { |round| round.name == "second" }[0]
       @final_round = rounds.select { |round| round.name == "final" }[0]
@@ -31,7 +30,6 @@ class UsersController < ApplicationController
         @pitches << pitch if pitch.user.cohort == @user.cohort
       end
       render 'show_student'
-    end
   end
 
   def edit
@@ -60,4 +58,4 @@ class UsersController < ApplicationController
     def correct_user
       redirect_to root_url unless current_user?
     end
-# end
+end

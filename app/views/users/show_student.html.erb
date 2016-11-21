@@ -4,7 +4,7 @@
     <% if @user.pitches.count < 4 %>
       <h2>Add a Pitch!</h2>
       <!-- form for adding a new pitch - currently does not work - this will work with AJAX -->
-      <%= form_for :pitch, url: pitches_path do |f| %>
+      <%= form_for :pitch, url: pitches_path, :html => { class: "new-pitch-form" } do |f| %>
         Title: <%= f.text_field :working_title %>
         Description: <%= f.text_field :description %>
         <%= f.submit 'Add Pitch' %>
