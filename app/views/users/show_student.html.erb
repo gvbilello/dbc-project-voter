@@ -15,12 +15,13 @@
   </div>
 
   <div class="main"
-
+<% if @user.rounds.any? %>
     <div class="final-projects">
       <h2>Final Projects!</h2>
       <ul class="final-pitches">
         <% @pitches.each do |pitch| %>
           <% if pitch.round.name == "final" %>
+<% binding.pry %>
             <li class="pitch">
               <%=  pitch.working_title %> - <%= pitch.description %>
             </li>
@@ -28,7 +29,7 @@
         <% end %>
       </ul>
     </div>
-
+<% if @user.rounds.any? %>
     <div class="round-2-voting">
       <h2>Round 2 Voting:</h2>
       <ul class="round-2-pitches">
@@ -46,9 +47,11 @@
             </li>
           <% end %>
         <% end %>
+      <% end %>
+      <% end %>
       </ul>
     </div>
-
+<% if @user.rounds.any? %>
     <div class="round-1-voting">
       <h2>Round 1 Voting:</h2>
       <ul class="round-1-pitches">
@@ -67,6 +70,7 @@
         <% end %>
       </ul>
     </div>
+    <% end %>
 
   </div>
 
