@@ -2,17 +2,17 @@
 // All this logic will automatically be available in application.js.
 
 // Add a new pitch
-$(document).ready(function() {
+// $(document).ready(function() {
 
-	$(".new-pitch-form").on("submit", function(event) {
-		event.preventDefault();
-		debugger;
-		$.ajax({
-			url: ,
-			method: "POST",
-			data: 
-		}).done(function(response) {
-			
-		})
-	})
-})
+// 	$(".new-pitch-form").on("submit", function(event) {
+// 		event.preventDefault();
+// 		debugger;
+// 		$.ajax({
+// 			url: ,
+// 			method: "POST",
+// 			data:
+// 		}).done(function(response) {
+
+// 		})
+// 	})
+// })
