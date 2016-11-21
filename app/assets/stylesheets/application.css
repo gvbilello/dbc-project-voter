@@ -31,7 +31,8 @@ body {
 }
 
 form p button#sign_up_btn:hover {
-  background-color: orange;
+  background-color: #003399;
+  color: white;
 }
 
 p button {
@@ -66,8 +67,20 @@ form textarea {
   color: black;
 }
 
-p button.sign-up {
+form button.add-pitch-btn {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+div.sidebar button.add-pitch-btn:hover {
+  background-color: #003399;
+  color: white;
+}
 
+div table form button.pitch-vote-btn {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+div table form button.pitch-vote-btn:hover {
+  background-color: #003399;
+  color: white;
 }
 
 li a.pure-menu-link {
@@ -187,6 +200,11 @@ div {
    font-size: 70%;
  }
 
+ table.admin-view td {
+   margin: 30px;
+   line-height: 2.1em;
+ }
+
  td.vote-header {
   padding-left: 20px;
   font-weight: bold;
@@ -200,3 +218,34 @@ div {
    padding: 10px;
    padding-right: 35px;
  }
+
+ table.admin-view td.title-column {
+   padding-right: 90px;
+ }
+
+ table.admin-view td.pitch-check-box {
+   padding-left: 80px;
+ }
+
+ table.admin-view td.pitch-author-column {
+   padding-left: 70px;
+ }
+
+ td.title-header {
+   padding-right: 80px;
+ }
+
+ button#create-cohort-btn {
+   background-color: white;
+   color: #1f8dd6;
+   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+ }
+
+ form p.cohort-fields-container {
+   padding-right: 30px;
+ }
+
+section ul.cohort-list-container li{
+  text-align: center;
+  list-style-type: none;
+}
