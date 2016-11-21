@@ -62,6 +62,7 @@ div {
    overflow: hidden;
    width: 100%;
    height: 88%;
+   overflow: scroll;
    top: 0;
    left: 0;
    position: fixed !important;
@@ -124,4 +125,19 @@ div {
  .footer {
    position: fixed; bottom: 0; width: 100%;
    text-align: center;
+ }
+
+ button#add-pitch-btn {
+   background-color: white;
+   color: #1f8dd6;
+ }
+
+ form.vote-btn {
+   display: inline;
+ }
+
+ button.vote-btn {
+   background-color: white;
+   color: #1f8dd6;
+   font-size: 70%;
  }
