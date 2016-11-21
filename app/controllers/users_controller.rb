@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, :find_and_ensure_user, only: [:show, :edit, :update]
-  before_action :correct_user, only: [:show, :edit, :update, :correct_user]
+  before_action :correct_user, only: [:show, :edit, :update]
 
   def new
     @cohorts = Cohort.order(:name)
@@ -20,13 +20,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    # if @user.admin == true
-    #   # render admin dashboard
-    #   render 'show_admin'
-    # else
-      # render user dashboard
       rounds = @user.rounds.distinct
-      # binding.pry
       @first_round = rounds.select { |round| round.name == "first" }[0]
       @second_round = rounds.select { |round| round.name == "second" }[0]
       @final_round = rounds.select { |round| round.name == "final" }[0]
@@ -36,7 +30,6 @@ class UsersController < ApplicationController
         @pitches << pitch if pitch.user.cohort == @user.cohort
       end
       render 'show_student'
-    # end
   end
 
   def edit
@@ -58,19 +51,11 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :username, :email, :cohort_id, :password, :password_confirmation)
     end
 
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = 'Please log in'
-        redirect_to signin_url
-      end
-    end
-
     def find_and_ensure_user
-      @user = User.find_by(id: session[:user_id])
+      @user = User.find_by(id: params[:id]) #if set to session[:user_id] then this will always evaluate to true for correct_user?
     end
 
     def correct_user
-      redirect_to root_url unless current_user?(@user)
+      redirect_to root_url unless current_user?
     end
 end
