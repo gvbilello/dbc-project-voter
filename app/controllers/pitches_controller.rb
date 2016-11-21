@@ -26,7 +26,35 @@ class PitchesController < ApplicationController
   end
 
   def update_index
-    
+    # binding.pry
+    @cohorts = Cohort.all
+    @pitches = Pitch.where(selected: false)
+    if params[:commit] == "Select Final Pitches"
+      # redirect to final round
+    elsif params[:commit] == "Select Top Pitches"
+      @round = Round.new(name: "second", can_vote: true)
+      if @round.save
+        # something
+        @second_round_pitches = Pitch.where(selected: true)
+        @second_round_pitches.each do |pitch|
+          pitch.round = @round
+          pitch.selected = false
+        end
+        # binding.pry
+        render 'admins/show'
+      else
+        @errors = @round.errors.full_messages
+        render current_user
+      end
+    else
+      pitch = Pitch.find_by(id: params[:pitch_id])
+      if pitch.update_attributes(selected: true)
+        flash[:succes] = "Pitch Selected"
+        redirect_to current_user
+      else
+        @errors = current_user.errors.full_messages
+      end
+    end
   end
 
   def update

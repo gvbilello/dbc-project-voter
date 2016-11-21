@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20161118200611) do
   create_table "pitches", force: :cascade do |t|
     t.string   "working_title", limit: 120,                 null: false
     t.text     "description",                               null: false
-    t.boolean  "chosen",                    default: false
+    t.boolean  "selected",                  default: false
     t.integer  "user_id",                                   null: false
     t.integer  "round_id",                                  null: false
     t.datetime "created_at",                                null: false

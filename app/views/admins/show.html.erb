@@ -11,26 +11,70 @@
     <% end %>
     </ul>
   </section>
-  <section id="pitch-container">
-    <h3>Pitch</h3>
-    <div class="pitch-content">
-      <table>
-        <tr>
-          <td>Working Title</td>
-          <td>Description</td>
-          <td>Select Pitch</td>
-        <tr>
-        <% @pitches.each do |pitch| %>
-          <tr>
-            <td><%= pitch.working_title %></td>
-            <td><%= pitch.description %></td>
-            <td><%= pitch.user.name %></td>
-            <%= fields_for "pitch[chosen]" do |form| %>
-              <td><%= form.check_box :true %></td>
+  <% if @round.name == "second" %>
+    <section class="pitch-container">
+      <h3>Second Round Pitches</h3>
+      <div class="pitch-content">
+        <%= form_for :pitch, :url => { :controller => "pitches", :action => "update_index" }, :html => { :method => :patch } do |f| %>
+          <table>
+            <tr>
+              <td>Working Title</td>
+              <td>Description</td>
+              <td>Select Pitch</td>
+            <tr>
+            <% @second_round_pitches.each do |pitch| %>
+              <tr>
+                <td><%= pitch.working_title %></td>
+                <td><%= pitch.description %></td>
+                <td><%= pitch.user.name %></td>
+                <td><%= pitch.votes.count %></td>
+                <% unless @round.name == "final" %>
+                  <td>
+                    <% unless pitch.selected %>
+                      <button type="submit" name="pitch_id" value=<%= pitch.id %> class="fa fa-sort-desc vote-button upvote-button"></button>
+                    <% end %>
+                  </td>
+                <% end %>
+              </tr>
             <% end %>
-          </tr>
+          </table>
+          <div class="actions btn btn-lg">
+            <%= f.submit "Select Final Pitches" %>
+          </div>
         <% end %>
-      </table>
+      </div>
+    </section>
+  <% end %>
+  <section class="pitch-container">
+    <h3>First Round Pitches</h3>
+    <div class="pitch-content">
+      <%= form_for :pitch, :url => { :controller => "pitches", :action => "update_index" }, :html => { :method => :patch } do |f| %>
+        <table>
+          <tr>
+            <td>Working Title</td>
+            <td>Description</td>
+            <td>Select Pitch</td>
+          <tr>
+          <% @pitches.each do |pitch| %>
+            <tr>
+              <td><%= pitch.working_title %></td>
+              <td><%= pitch.description %></td>
+              <td><%= pitch.user.name %></td>
+              <td><%= pitch.votes.count %></td>
+              <% unless @round.name == "second" || @round.name == "final" %>
+                <td>
+                  <% unless pitch.selected %>
+                    <button type="submit" name="pitch_id" value=<%= pitch.id %> class="fa fa-sort-desc vote-button upvote-button"></button>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
+        <div class="actions btn btn-lg">
+          <%= f.submit "Select Top Pitches" %>
+        </div>
+      <% end %>
     </div>
   </section>
 </section>
